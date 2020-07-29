@@ -37,16 +37,20 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 								.anyRequest().access("#oauth2.hasScope('write')");
 						http.requestMatchers().antMatchers("/oauth/token", "/oauth/token").and().authorizeRequests()
 								.anyRequest().access("#oauth2.hasScope('write')");
+						http.requestMatchers().antMatchers("/transportbusstaff", "/transportbusstaff/**").and().authorizeRequests()
+						.anyRequest().access("#oauth2.hasScope('write')");
+						http.requestMatchers().antMatchers("/transportbusroute", "/transportbusroute/**").and().authorizeRequests()
+						.anyRequest().access("#oauth2.hasScope('write')");
+						http.requestMatchers().antMatchers("/timeschedule", "/timeschedule/**").and().authorizeRequests()
+						.anyRequest().access("#oauth2.hasScope('write')");
+						http.requestMatchers().antMatchers("/transportbus", "/transportbus/**").and().authorizeRequests()
+						.anyRequest().access("#oauth2.hasScope('write')");
+						http.requestMatchers().antMatchers("/transportroute", "/transportroute/**").and().authorizeRequests()
+						.anyRequest().access("#oauth2.hasScope('write')");
+						http.requestMatchers().antMatchers("/transportstaff", "/transportstaff/**").and().authorizeRequests()
+						.anyRequest().access("#oauth2.hasScope('write')");
 						http.requestMatchers().antMatchers("/electioncontituency", "/electioncontituency/**").and().authorizeRequests()
 						.anyRequest().access("#oauth2.hasScope('write')");
-						http.requestMatchers().antMatchers("/electioncontituencypollingstation", "/electioncontituencypollingstation/**").and().authorizeRequests()
-						.anyRequest().access("#oauth2.hasScope('write')");
-						http.requestMatchers().antMatchers("/electioncontituencypollingstationdetail", "/electioncontituencypollingstationdetail/**").and().authorizeRequests()
-						.anyRequest().access("#oauth2.hasScope('write')");
-						http.requestMatchers().antMatchers("/electioncontituencypollingstationresult", "/electioncontituencypollingstationresult/**").and().authorizeRequests()
-						.anyRequest().access("#oauth2.hasScope('write')");
-						
-					
 						http.requestMatchers().antMatchers("/lookup", "/lookup/**").and().authorizeRequests()
 						.anyRequest().access("#oauth2.hasScope('write')");
 					}
@@ -55,3 +59,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		return resource;
 	}
 }
+
+
+
