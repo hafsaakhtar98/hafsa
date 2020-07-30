@@ -10,9 +10,12 @@ import com.cwiztech.contituency.model.ElectionContituency;
 
 
 
+
 public interface electionContituencyRepository extends JpaRepository<ElectionContituency,Long>{
 	 
 	@Query(value="select * from TBLELECTIONCONTITUENCY where ISACTIVE='Y'", nativeQuery = true)
 	List<ElectionContituency> findActive();
+	
+
 }
 
