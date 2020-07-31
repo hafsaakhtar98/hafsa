@@ -599,15 +599,6 @@ public class electionContituencyPollingStationDetailController {
 					? electioncontituencypollingstationdetailrepository.findByAdvancedSearch(pollingstationdetail_ID,pollingstation_ID,areatype_ID)
 					: electioncontituencypollingstationdetailrepository.findAllByAdvancedSearch(pollingstationdetail_ID,pollingstation_ID,areatype_ID));
 			
-//			if (jsonObj.has("university_ID"))
-//				university_ID = jsonObj.getLong("university_ID");
-//			if (jsonObj.has("college_ID"))
-//				college_ID = jsonObj.getLong("college_ID");
-//			if (jsonObj.has("collegetype_ID"))
-//				collegetype_ID = jsonObj.getLong("collegetype_ID");
-	//
-//			department = ((active == true) ? departmentrepository.findByAdvancedSearch(university_ID, college_ID, collegetype_ID)
-//					: departmentrepository.findAllByAdvancedSearch(university_ID, college_ID, collegetype_ID));
 
 			String rtn, workstation=null;		
 			LoginUser requestUser;
