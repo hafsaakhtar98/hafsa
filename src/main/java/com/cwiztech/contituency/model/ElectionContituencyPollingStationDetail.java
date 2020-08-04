@@ -22,7 +22,7 @@ public class ElectionContituencyPollingStationDetail {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long POLLINGSATTIONDETAIL_ID;
+	private long POLLINGSTATIONDETAIL_ID;
 	
 	@ManyToOne
 	@JoinColumn(name = "POLLINGSTATION_ID")
@@ -63,12 +63,12 @@ public class ElectionContituencyPollingStationDetail {
 	@Column(name = "MODIFIED_WORKSTATION")
 	private String MODIFIED_WORKSTATION;
 
-	public long getPOLLINGSATTIONDETAIL_ID() {
-		return POLLINGSATTIONDETAIL_ID;
+	public long getPOLLINGSTATIONDETAIL_ID() {
+		return POLLINGSTATIONDETAIL_ID;
 	}
 
 	public void setPOLLINGSATTIONDETAIL_ID(long pOLLINGSATTIONDETAIL_ID) {
-		POLLINGSATTIONDETAIL_ID = pOLLINGSATTIONDETAIL_ID;
+		POLLINGSTATIONDETAIL_ID = pOLLINGSATTIONDETAIL_ID;
 	}
 
 	public ElectionContituencyPollingStation getPOLLINGSTATION_ID() {

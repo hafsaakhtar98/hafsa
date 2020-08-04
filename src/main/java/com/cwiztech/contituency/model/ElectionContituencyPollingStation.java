@@ -28,7 +28,7 @@ public class ElectionContituencyPollingStation  {
 	private String POLLINGSTATION_CODE;
 	
 	@Column(name="DESCRIPTION")
-	private long DESCRIPTION;
+	private String DESCRIPTION;
 
 	@Column(name = "LANGITUDE")
 	private String  LANGITUDE;
@@ -101,16 +101,16 @@ public class ElectionContituencyPollingStation  {
 	}
 
 
+	
 
-
-	public long getDESCRIPTION() {
+	public String getDESCRIPTION() {
 		return DESCRIPTION;
 	}
 
 
 
 
-	public void setDESCRIPTION(long dESCRIPTION) {
+	public void setDESCRIPTION(String dESCRIPTION) {
 		DESCRIPTION = dESCRIPTION;
 	}
 

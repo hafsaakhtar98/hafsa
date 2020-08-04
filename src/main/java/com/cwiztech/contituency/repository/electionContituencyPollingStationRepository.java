@@ -6,12 +6,40 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.cwiztech.contituency.model.ElectionContituencyPollingStation;
-import com.cwiztech.contituency.model.ElectionContituencyPollingStationDetail;
+
 
 
 public interface electionContituencyPollingStationRepository extends JpaRepository<ElectionContituencyPollingStation, Long> {
+	
 
 	@Query(value = "select * from TBLELECTIONCONTITUENCYPOLLINGSTATION where ISACTIVE='Y'", nativeQuery = true)
 	public List<ElectionContituencyPollingStation> findActive();
+
+	@Query(value = "select * from TBLELECTIONCONTITUENCYPOLLINGSTATION as a"
+			+ "inner join TBLELECTIONCONTITUENCYPOLLINGSTATION as b on a.POLLINGSTATION_ID=b.POLLINGSTATION_ID "
+			+ "where CONTITUENCY_ID like ?1 or POLLINGSTATION_CODE like ?1 or DESCRIPTION like ?1 or LANGITUDE like ?1 or LATITUDE like ?1 or VALID_VOTES like ?1 or REJECTED_VOTES like ?1 ) and a.ISACTIVE='Y'", nativeQuery = true)
+	public List<ElectionContituencyPollingStation> findBySearch(String search);
+
+	@Query(value = "select * from TBLELECTIONCONTITUENCYPOLLINGSTATION as a "
+			+  "inner join TBLELECTIONCONTITUENCYPOLLINGSTATION as b on a.POLLINGSTATION_ID=b.POLLINGSTATION_ID "
+			+ "where CONTITUENCY_ID like ?1 or POLLINGSTATION_CODE like ?1 or DESCRIPTION like ?1 or LANGITUDE like ?1 or LATITUDE like ?1 or VALID_VOTES like ?1 or REJECTED_VOTES like ?1" + "", nativeQuery = true) 
+	public List<ElectionContituencyPollingStation> findAllBySearch(String search);
+
+	@Query(value = "select * from TBLELECTIONCONTITUENCYPOLLINGSTATION as a "
+			+ "inner join TBLELECTIONCONTITUENCYPOLLINGSTATION as b on a.POLLINGSTATION_ID=b.POLLINGSTATION_ID " 
+			+ "inner join TBLSYSTEMSETTINGLOOKUP as c on a.CONTITUENCY_ID=c.ID " 
+			+ "where POLLINGSATTION_ID LIKE CASE WHEN ?1 = 0 THEN POLLINGSATTION_ID ELSE ?1 END "
+			+ "and a.CONTITUENCY_ID LIKE CASE WHEN ?2 = 0 THEN a.CONTITUENCY_ID ELSE ?2 END "
+			+ "and a.ISACTIVE='Y'", nativeQuery = true)
+	List<ElectionContituencyPollingStation> findByAdvancedSearch(Long psid, Long cid);
+
+	@Query(value = "select * from TBLELECTIONCONTITUENCYPOLLINGSTATION as a "
+			+ "inner join TBLELECTIONCONTITUENCYPOLLINGSTATION as b on a.POLLINGSTATION_ID=b.POLLINGSTATION_ID " 
+			+ "inner join TBLSYSTEMSETTINGLOOKUP as c on a.CONTITUENCY_ID=c.ID " 
+			+ "where POLLINGSATTION_ID LIKE CASE WHEN ?1 = 0 THEN POLLINGSATTION_ID ELSE ?1 END "
+			+ "and a.CONTITUENCY_ID LIKE CASE WHEN ?2 = 0 THEN a.CONTITUENCY_ID ELSE ?2 END "
+			, nativeQuery = true)
+	List<ElectionContituencyPollingStation> findAllByAdvancedSearch( Long psid, Long cid);
+
 	
 }

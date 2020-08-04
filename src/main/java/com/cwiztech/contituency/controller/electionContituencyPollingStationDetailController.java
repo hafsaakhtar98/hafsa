@@ -228,7 +228,7 @@ public class electionContituencyPollingStationDetailController {
 			electioncontituencypollingstationdetail = electioncontituencypollingstationdetailrepository.saveAndFlush(electioncontituencypollingstationdetail);
 			rtn = mapper.writeValueAsString(electioncontituencypollingstationdetail);
 
-			tbldatalogrepository.saveAndFlush(tableDataLogs.TableSaveDataLog(electioncontituencypollingstationdetail.getPOLLINGSATTIONDETAIL_ID(),
+			tbldatalogrepository.saveAndFlush(tableDataLogs.TableSaveDataLog(electioncontituencypollingstationdetail.getPOLLINGSTATIONDETAIL_ID(),
 					databaseTableID, requestUser, rtn));
 
 			apiRequest.setREQUEST_OUTPUT(rtn);
@@ -297,7 +297,7 @@ public class electionContituencyPollingStationDetailController {
 
 			rtn = mapper.writeValueAsString(electioncontituencypollingstationdetail);
 			
-			tbldatalogrepository.saveAndFlush(tableDataLogs.TableSaveDataLog(electioncontituencypollingstationdetail.getPOLLINGSATTIONDETAIL_ID(),
+			tbldatalogrepository.saveAndFlush(tableDataLogs.TableSaveDataLog(electioncontituencypollingstationdetail.getPOLLINGSTATIONDETAIL_ID(),
 					databaseTableID, requestUser, rtn));
 
 			apiRequest.setREQUEST_OUTPUT(rtn);
@@ -329,7 +329,7 @@ public class electionContituencyPollingStationDetailController {
 	        requestUser = loginuserrepository.getUser(user_NAME);
 			
 			DatabaseTables databaseTableID = databasetablesrepository.findOne(ElectionContituencyPollingStationDetail.getDatabaseTableID());
-			APIRequestDataLog apiRequest = tableDataLogs.apiRequestDataLog("PUT", databaseTableID, requestUser, "/employee department",
+			APIRequestDataLog apiRequest = tableDataLogs.apiRequestDataLog("PUT", databaseTableID, requestUser, "/election contituency polling station detail",
 					data, workstation);
 
 
@@ -428,7 +428,7 @@ public class electionContituencyPollingStationDetailController {
 					electioncontituencypollingstationdetail = electioncontituencypollingstationdetailrepository.saveAndFlush(electioncontituencypollingstationdetail);
 					
 					rtn = mapper.writeValueAsString(electioncontituencypollingstationdetail);
-					tbldatalogrepository.saveAndFlush(tableDataLogs.TableSaveDataLog(electioncontituencypollingstationdetail.getPOLLINGSATTIONDETAIL_ID(), databaseTableID, requestUser, rtn));
+					tbldatalogrepository.saveAndFlush(tableDataLogs.TableSaveDataLog(electioncontituencypollingstationdetail.getPOLLINGSTATIONDETAIL_ID(), databaseTableID, requestUser, rtn));
 
 					electioncontituencypollingstationdetails.add(electioncontituencypollingstationdetail);
 				}
@@ -468,7 +468,7 @@ public class electionContituencyPollingStationDetailController {
 			electioncontituencypollingstationdetailrepository.delete(electioncontituencypollingstationdetail);
 			rtn = mapper.writeValueAsString(electioncontituencypollingstationdetail);
 
-			tbldatalogrepository.saveAndFlush(tableDataLogs.TableSaveDataLog(electioncontituencypollingstationdetail.getPOLLINGSATTIONDETAIL_ID(),
+			tbldatalogrepository.saveAndFlush(tableDataLogs.TableSaveDataLog(electioncontituencypollingstationdetail.getPOLLINGSTATIONDETAIL_ID(),
 					databaseTableID, requestUser, rtn));
 
 			apiRequest.setREQUEST_OUTPUT(rtn);
@@ -508,7 +508,7 @@ public class electionContituencyPollingStationDetailController {
 			electioncontituencypollingstationdetail = electioncontituencypollingstationdetailrepository.saveAndFlush(electioncontituencypollingstationdetail);
 			rtn = mapper.writeValueAsString(electioncontituencypollingstationdetail);
 			tbldatalogrepository
-					.saveAndFlush(tableDataLogs.TableSaveDataLog(electioncontituencypollingstationdetail.getPOLLINGSATTIONDETAIL_ID(), databaseTableID, requestUser, rtn));
+					.saveAndFlush(tableDataLogs.TableSaveDataLog(electioncontituencypollingstationdetail.getPOLLINGSTATIONDETAIL_ID(), databaseTableID, requestUser, rtn));
 
 			apiRequest.setREQUEST_OUTPUT(rtn);
 			apiRequest.setREQUEST_STATUS("Success");
