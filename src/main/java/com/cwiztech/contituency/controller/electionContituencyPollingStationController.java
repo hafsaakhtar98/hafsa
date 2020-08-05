@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cwiztech.contituency.model.ElectionContituencyPollingStation;
 import com.cwiztech.contituency.repository.electionContituencyPollingStationRepository;
+import com.cwiztech.contituency.repository.electionContituencyRepository;
 import com.cwiztech.datalogs.model.APIRequestDataLog;
 import com.cwiztech.datalogs.model.DatabaseTables;
 import com.cwiztech.datalogs.model.tableDataLogs;
@@ -45,6 +46,9 @@ public class electionContituencyPollingStationController {
 	
 	@Autowired
 	private electionContituencyPollingStationRepository electioncontituencypollingstationrepository;
+	
+	@Autowired
+	private electionContituencyRepository electioncontituencyrepository;
 	
 	@Autowired
 	private lookupRepository lookuprepository;
@@ -177,29 +181,24 @@ public class electionContituencyPollingStationController {
 				workstation = jsonObj.getString("workstation");
 			APIRequestDataLog apiRequest = tableDataLogs.apiRequestDataLog("POST", databaseTableID, requestUser, "/electioncontituencypollingstation",
 					data, workstation);
-
-					
-			if (!jsonObj.has("pollingstation_ID")) {
-				apiRequest = tableDataLogs.errorDataLog(apiRequest, "ElectionContituencyPollingStation", "PollingStation Id is missing");
-				apirequestdatalogRepository.saveAndFlush(apiRequest);
-				return apiRequest.getREQUEST_OUTPUT();
-			}
-			electioncontituencypollingstation.setPOLLINGSTATION_ID(electioncontituencypollingstationrepository.getOne(jsonObj.getLong("pollingstation_ID")));
-			
 			
 			if (!jsonObj.has("contituency_ID")) {
 				apiRequest = tableDataLogs.errorDataLog(apiRequest, "ElectionContituencyPollingStation", "Contituency Id is missing");
 				apirequestdatalogRepository.saveAndFlush(apiRequest);
 				return apiRequest.getREQUEST_OUTPUT();
 			}
-			electioncontituencypollingstation.setCONTITUENCY_ID(lookuprepository.findOne(jsonObj.getLong("contituency_ID")));
+			electioncontituencypollingstation.setCONTITUENCY_ID(electioncontituencyrepository.findOne(jsonObj.getLong("contituency_ID")));
+			
+			if (!jsonObj.has("description")) {
+				apiRequest = tableDataLogs.errorDataLog(apiRequest, "ElectionContituencyPollingStation", "Description is missing");
+				apirequestdatalogRepository.saveAndFlush(apiRequest);
+				return apiRequest.getREQUEST_OUTPUT();
+			}
+			electioncontituencypollingstation.setDESCRIPTION(jsonObj.getString("description"));
 			
 			
 			if (jsonObj.has("pollingstation_code"))
 				electioncontituencypollingstation.setPOLLINGSTATION_CODE(jsonObj.getString("pollingstation_code"));
-			
-			if (jsonObj.has("description"))
-				electioncontituencypollingstation.setDESCRIPTION(jsonObj.getString("description"));
 			
 			if (jsonObj.has("langitude"))
 				
@@ -208,10 +207,10 @@ public class electionContituencyPollingStationController {
 				electioncontituencypollingstation.setLATITUDE(jsonObj.getString("latitude"));
 			
 			if (jsonObj.has("valid_votes"))
-				electioncontituencypollingstation.setVALID_VOTES(jsonObj.getLong("valid_votes"));
+				electioncontituencypollingstation.setVALID_VOTES(lookuprepository.findOne(jsonObj.getLong("valid_votes")));
 			
 			if (jsonObj.has("rejected_votes"))
-				electioncontituencypollingstation.setREJECTED_VOTES(jsonObj.getLong("rejected_votes"));
+				electioncontituencypollingstation.setREJECTED_VOTES(lookuprepository.findOne(jsonObj.getLong("rejected_votes")));
 			
 			
 
@@ -261,31 +260,27 @@ public class electionContituencyPollingStationController {
 			APIRequestDataLog apiRequest = tableDataLogs.apiRequestDataLog("PUT", databaseTableID, requestUser, "/electioncontituencypollingstation" + id,
 					data, workstation);
 
-			
-			
-			if (jsonObj.has("pollingstation_ID") && !jsonObj.isNull("pollingstation_ID"))
-			    electioncontituencypollingstation.setPOLLINGSTATION_ID(electioncontituencypollingstationrepository.getOne(jsonObj.getLong("pollingstation_ID")));
-					    
-			    if (jsonObj.has("contituency_ID") && !jsonObj.isNull("contituency_ID"))
-			    	 electioncontituencypollingstation.setCONTITUENCY_ID(lookuprepository.findOne(jsonObj.getLong("contituency_ID")));
 			    
-			    if (jsonObj.has("pollingstation_code"))
-					electioncontituencypollingstation.setPOLLINGSTATION_CODE(jsonObj.getString("pollingstation_code"));
+			    if (jsonObj.has("contituency_ID") && !jsonObj.isNull("contituency_ID"))
+			    	 electioncontituencypollingstation.setCONTITUENCY_ID(electioncontituencyrepository.findOne(jsonObj.getLong("contituency_ID")));
+			    
+			    if (jsonObj.has("pollingstation_CODE"))
+					electioncontituencypollingstation.setPOLLINGSTATION_CODE(jsonObj.getString("pollingstation_CODE"));
 				
-				if (jsonObj.has("description"))
+				if (jsonObj.has("description")&& !jsonObj.isNull("description"))
 					electioncontituencypollingstation.setDESCRIPTION(jsonObj.getString("description"));
 				
 				if (jsonObj.has("langitude"))
-					
 					electioncontituencypollingstation.setLANGITUDE(jsonObj.getString("langitude"));
+				
 				if (jsonObj.has("latitude"))
 					electioncontituencypollingstation.setLATITUDE(jsonObj.getString("latitude"));
 				
-				if (jsonObj.has("valid_votes"))
-					electioncontituencypollingstation.setVALID_VOTES(jsonObj.getLong("valid_votes"));
+				if (jsonObj.has("valid_VOTES"))
+					electioncontituencypollingstation.setVALID_VOTES(lookuprepository.findOne(jsonObj.getLong("valid_VOTES")));
 				
-				if (jsonObj.has("rejected_votes"))
-					electioncontituencypollingstation.setREJECTED_VOTES(jsonObj.getLong("rejected_votes"));
+				if (jsonObj.has("rejected_VOTES"))
+					electioncontituencypollingstation.setREJECTED_VOTES(lookuprepository.findOne(jsonObj.getLong("rejected_VOTES")));
 				
 			    if (jsonObj.has("isactive"))
 					 electioncontituencypollingstation.setISACTIVE(jsonObj.getString("isactive"));
@@ -330,7 +325,7 @@ public class electionContituencyPollingStationController {
 	        requestUser = loginuserrepository.getUser(user_NAME);
 			
 			DatabaseTables databaseTableID = databasetablesrepository.findOne(ElectionContituencyPollingStation.getDatabaseTableID());
-			APIRequestDataLog apiRequest = tableDataLogs.apiRequestDataLog("PUT", databaseTableID, requestUser, "/election contituency polling station",
+			APIRequestDataLog apiRequest = tableDataLogs.apiRequestDataLog("PUT", databaseTableID, requestUser, "/electioncontituencypollingstation",
 					data, workstation);
 
 
@@ -345,19 +340,14 @@ public class electionContituencyPollingStationController {
 						electioncontituencypollingstation = electioncontituencypollingstationrepository.findOne(id);
 				};
 				
-				if (id==0 && (!jsonObj.has("pollingstation_ID") || jsonObj.isNull("pollingstation_ID"))) {
-					apiRequest = tableDataLogs.errorDataLog(apiRequest, "ElectionContituencyPollingStation", "Polling Station ID is missing");
-					apirequestdatalogRepository.saveAndFlush(apiRequest);
-					id = -1;
-				}
-					
+	
 				 if (id==0 && (!jsonObj.has("contituency_ID") || jsonObj.isNull("contituency_ID"))) {
 						apiRequest = tableDataLogs.errorDataLog(apiRequest, "ElectionContituencyPollingStation", "contituency_ID is missing");
 						apirequestdatalogRepository.saveAndFlush(apiRequest);
 						id = -1;
 					}
 				   
-			    if (id==0 && (!jsonObj.has("pollingstation_code") || jsonObj.isNull("pollingstation_code"))) {
+			    if (id==0 && (!jsonObj.has("pollingstation_CODE") || jsonObj.isNull("pollingstation_CODE"))) {
 					apiRequest = tableDataLogs.errorDataLog(apiRequest, "ElectionContituencyPollingStation", "Pollingstation_code is missing");
 					apirequestdatalogRepository.saveAndFlush(apiRequest);
 					id = -1;
@@ -382,13 +372,13 @@ public class electionContituencyPollingStationController {
 				}
 			    
 			   
-			    if (id==0 && (!jsonObj.has("valid_votes") || jsonObj.isNull("valid_votes"))) {
+			    if (id==0 && (!jsonObj.has("valid_VOTES") || jsonObj.isNull("valid_VOTES"))) {
 					apiRequest = tableDataLogs.errorDataLog(apiRequest, "ElectionContituencyPollingStation", "Valid Votes is missing");
 					apirequestdatalogRepository.saveAndFlush(apiRequest);
 					id = -1;
 				}
 			    
-			    if (id==0 && (!jsonObj.has("rejected_votes") || jsonObj.isNull("rejected_votes"))) {
+			    if (id==0 && (!jsonObj.has("rejected_VOTES") || jsonObj.isNull("rejected_VOTES"))) {
 					apiRequest = tableDataLogs.errorDataLog(apiRequest, "ElectionContituencyPollingStation", "Rejected Votes are missing");
 					apirequestdatalogRepository.saveAndFlush(apiRequest);
 					id = -1;
@@ -400,31 +390,28 @@ public class electionContituencyPollingStationController {
 			    
 			    
 				if (id!=-1) {
-					if (jsonObj.has("pollingstation_ID") && !jsonObj.isNull("pollingstation_ID"))
-						electioncontituencypollingstation.setPOLLINGSTATION_ID(electioncontituencypollingstationrepository.getOne(jsonObj.getLong("pollingstation_ID")));
-					
 					
 					 if (jsonObj.has("Contituency_ID") && !jsonObj.isNull("Contituency_ID"))
-						 electioncontituencypollingstation.setCONTITUENCY_ID(lookuprepository.findOne(jsonObj.getLong("Contituency_ID")));
+						 electioncontituencypollingstation.setCONTITUENCY_ID(electioncontituencyrepository.findOne(jsonObj.getLong("Contituency_ID")));
 					 
 					 
-					 if (jsonObj.has("pollingstation_code"))
-							electioncontituencypollingstation.setPOLLINGSTATION_CODE(jsonObj.getString("pollingstation_code"));
+					 if (jsonObj.has("pollingstation_CODE"))
+							electioncontituencypollingstation.setPOLLINGSTATION_CODE(jsonObj.getString("pollingstation_CODE"));
 						
-						if (jsonObj.has("description"))
+						if (jsonObj.has("description") && !jsonObj.isNull("description"))
 							electioncontituencypollingstation.setDESCRIPTION(jsonObj.getString("description"));
 						
 						if (jsonObj.has("langitude"))
-							
 							electioncontituencypollingstation.setLANGITUDE(jsonObj.getString("langitude"));
+						
 						if (jsonObj.has("latitude"))
 							electioncontituencypollingstation.setLATITUDE(jsonObj.getString("latitude"));
 						
-						if (jsonObj.has("valid_votes"))
-							electioncontituencypollingstation.setVALID_VOTES(jsonObj.getLong("valid_votes"));
+						if (jsonObj.has("valid_VOTES"))
+							electioncontituencypollingstation.setVALID_VOTES(lookuprepository.findOne(jsonObj.getLong("valid_VOTES")));
 						
-						if (jsonObj.has("rejected_votes"))
-							electioncontituencypollingstation.setREJECTED_VOTES(jsonObj.getLong("rejected_votes"));
+						if (jsonObj.has("rejected_VOTES"))
+							electioncontituencypollingstation.setREJECTED_VOTES(lookuprepository.findOne(jsonObj.getLong("rejected_VOTES")));
 			    	
 					 if (jsonObj.has("isactive"))
 						electioncontituencypollingstation.setISACTIVE(jsonObj.getString("isactive"));
@@ -593,19 +580,25 @@ public class electionContituencyPollingStationController {
 			log.info("Input: " + data);
 
 			JSONObject jsonObj = new JSONObject(data);
-			long pollingstation_ID = 0; long contituency_ID=0;
+			long pollingstation_ID = 0; long contituency_ID=0; long valid_VOTES=0; long rejected_VOTES=0;
 			if (jsonObj.has("pollingstation_ID"))
 				pollingstation_ID = jsonObj.getLong("pollingstation_ID");
 			
 			if (jsonObj.has("contituency_ID"))
 				pollingstation_ID = jsonObj.getLong("contituency_ID");
 			
+			if (jsonObj.has("valid_VOTES"))
+				valid_VOTES = jsonObj.getLong("valid_VOTES");
+			
+			if (jsonObj.has("rejected_VOTES"))
+				rejected_VOTES = jsonObj.getLong("rejected_VOTES");
+			
 	
 			
 			
 			List<ElectionContituencyPollingStation> electioncontituencypollingstation = ((active == true)
-					? electioncontituencypollingstationrepository.findByAdvancedSearch(pollingstation_ID,contituency_ID)
-					: electioncontituencypollingstationrepository.findAllByAdvancedSearch(pollingstation_ID,contituency_ID));
+					? electioncontituencypollingstationrepository.findByAdvancedSearch(pollingstation_ID,contituency_ID,valid_VOTES,rejected_VOTES)
+					: electioncontituencypollingstationrepository.findAllByAdvancedSearch(pollingstation_ID,contituency_ID,valid_VOTES,rejected_VOTES));
 			
 
 			String rtn, workstation=null;		

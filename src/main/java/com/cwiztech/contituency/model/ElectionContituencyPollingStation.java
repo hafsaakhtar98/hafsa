@@ -7,10 +7,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.cwiztech.login.model.LoginUser;
+import com.cwiztech.systemsetting.model.Lookup;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -21,8 +23,9 @@ public class ElectionContituencyPollingStation  {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long POLLINGSTATION_ID;
 	
-	@Column(name=" CONTITUENCY_ID")
-	private long  CONTITUENCY_ID;
+	@ManyToOne
+	@JoinColumn(name=" CONTITUENCY_ID")
+	private ElectionContituency  CONTITUENCY_ID;
 	
 	@Column(name="POLLINGSTATION_CODE")
 	private String POLLINGSTATION_CODE;
@@ -36,11 +39,13 @@ public class ElectionContituencyPollingStation  {
 	@Column(name = "LATITUDE")
 	private String LATITUDE;
 	
-	@Column(name = "VALID_VOTES")
-	private long VALID_VOTES;
+	@ManyToOne
+	@JoinColumn(name = "VALID_VOTES")
+	private Lookup VALID_VOTES;
 	
-	@Column(name = "REJECTED_VOTES")
-	private long REJECTED_VOTES;
+	@ManyToOne
+	@JoinColumn(name = "REJECTED_VOTES")
+	private Lookup REJECTED_VOTES;
 	
 	@Column(name = "ISACTIVE ")
 	private String ISACTIVE ;
@@ -75,14 +80,14 @@ public class ElectionContituencyPollingStation  {
 
 
 
-	public long getCONTITUENCY_ID() {
+	public ElectionContituency getCONTITUENCY_ID() {
 		return CONTITUENCY_ID;
 	}
 
 
 
 
-	public void setCONTITUENCY_ID(long cONTITUENCY_ID) {
+	public void setCONTITUENCY_ID(ElectionContituency cONTITUENCY_ID) {
 		CONTITUENCY_ID = cONTITUENCY_ID;
 	}
 
@@ -145,28 +150,28 @@ public class ElectionContituencyPollingStation  {
 
 
 
-	public long getVALID_VOTES() {
+	public Lookup getVALID_VOTES() {
 		return VALID_VOTES;
 	}
 
 
 
 
-	public void setVALID_VOTES(long vALID_VOTES) {
+	public void setVALID_VOTES(Lookup vALID_VOTES) {
 		VALID_VOTES = vALID_VOTES;
 	}
 
 
 
 
-	public long getREJECTED_VOTES() {
+	public Lookup getREJECTED_VOTES() {
 		return REJECTED_VOTES;
 	}
 
 
 
 
-	public void setREJECTED_VOTES(long rEJECTED_VOTES) {
+	public void setREJECTED_VOTES(Lookup rEJECTED_VOTES) {
 		REJECTED_VOTES = rEJECTED_VOTES;
 	}
 

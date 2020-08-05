@@ -192,7 +192,7 @@ public class electionContituencyPollingStationResultController {
 				apirequestdatalogRepository.saveAndFlush(apiRequest);
 				return apiRequest.getREQUEST_OUTPUT();
 			}
-			electioncontituencypollingstationresult.setPOLLINGSTATIONRESULT_ID(electioncontituencypollingstationrepository.getOne(jsonObj.getLong("pollingstationresult_ID")));
+			electioncontituencypollingstationresult.setPOLLINGSTATIONRESULT_ID(electioncontituencypollingstationresultrepository.getOne(jsonObj.getLong("pollingstationresult_ID")));
 			
 			
 			
