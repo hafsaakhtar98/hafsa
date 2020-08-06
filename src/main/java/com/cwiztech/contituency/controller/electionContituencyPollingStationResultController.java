@@ -185,43 +185,45 @@ public class electionContituencyPollingStationResultController {
 			APIRequestDataLog apiRequest = tableDataLogs.apiRequestDataLog("POST", databaseTableID, requestUser, "/electioncontituencypollingstationresult",
 					data, workstation);
 
-			
-			
-			if (!jsonObj.has("pollingstationresult_ID")) {
-				apiRequest = tableDataLogs.errorDataLog(apiRequest, "ElectionContituencyPollingStationResult", "PollingStationResult Id is missing");
-				apirequestdatalogRepository.saveAndFlush(apiRequest);
-				return apiRequest.getREQUEST_OUTPUT();
-			}
-			electioncontituencypollingstationresult.setPOLLINGSTATIONRESULT_ID(electioncontituencypollingstationresultrepository.getOne(jsonObj.getLong("pollingstationresult_ID")));
-			
-			
-			
 			if (!jsonObj.has("pollingstation_ID")) {
-				apiRequest = tableDataLogs.errorDataLog(apiRequest, "ElectionContituencyPollingStationResult", "PollingStation Id is missing");
+				apiRequest = tableDataLogs.errorDataLog(apiRequest, "ElectionContituencyPollingStationReslt", "PollingStation Id is missing");
 				apirequestdatalogRepository.saveAndFlush(apiRequest);
 				return apiRequest.getREQUEST_OUTPUT();
 			}
-			electioncontituencypollingstationresult.setPOLLINGSTATION_ID(electioncontituencypollingstationrepository.getOne(jsonObj.getLong("pollingstation_ID")));
+			electioncontituencypollingstationresult.setPOLLINGSTATION_ID(electioncontituencypollingstationrepository.findOne(jsonObj.getLong("pollingstation_ID")));
 			
 			
-			if (!jsonObj.has("candidate_ID")) {
-				apiRequest = tableDataLogs.errorDataLog(apiRequest, "ElectionContituencyPollingStationResult", "Candidate Id is missing");
-				apirequestdatalogRepository.saveAndFlush(apiRequest);
-				return apiRequest.getREQUEST_OUTPUT();
-			}
-			electioncontituencypollingstationresult.setCANDIDATE_ID(lookuprepository.findOne(jsonObj.getLong("candidate_ID")));
+	//		if (!jsonObj.has("pollingstation_ID")) {
+		//		apiRequest = tableDataLogs.errorDataLog(apiRequest, "ElectionContituencyPollingStationResult", "PollingStation Id is missing");
+			//	apirequestdatalogRepository.saveAndFlush(apiRequest);
+				//return apiRequest.getREQUEST_OUTPUT();
+	//		}
+		//	electioncontituencypollingstationresult.setPOLLINGSTATION_ID(electioncontituencypollingstationrepository.getOne(jsonObj.getLong("pollingstation_ID")));
+			
+			//if (!jsonObj.has("pollingstationresult_ID")) {
+				//apiRequest = tableDataLogs.errorDataLog(apiRequest, "ElectionContituencyPollingStationResult", "PollingStationResult Id is missing");
+				//apirequestdatalogRepository.saveAndFlush(apiRequest);
+			//	return apiRequest.getREQUEST_OUTPUT();
+		//	}
+			//electioncontituencypollingstationresult.setPOLLINGSTATIONRESULT_ID(electioncontituencypollingstationresultrepository.getOne(jsonObj.getLong("pollingstationresult_ID")));
 			
 			
-			if (!jsonObj.has("resultfrom_ID")) {
-				apiRequest = tableDataLogs.errorDataLog(apiRequest, "ElectionContituencyPollingStationResult", "ResultFrom Id is missing");
-				apirequestdatalogRepository.saveAndFlush(apiRequest);
-				return apiRequest.getREQUEST_OUTPUT();
-			}
-			electioncontituencypollingstationresult.setRESULTFROM_ID(electioncontituencypollingstationrepository.getOne(jsonObj.getLong("resultfrom_ID")));
-		
+			
+		//	if (!jsonObj.has("pollingstation_ID")) {
+		//		apiRequest = tableDataLogs.errorDataLog(apiRequest, "ElectionContituencyPollingStationResult", "PollingStation Id is missing");
+		//		apirequestdatalogRepository.saveAndFlush(apiRequest);
+		//		return apiRequest.getREQUEST_OUTPUT();
+		//	}
+		//	electioncontituencypollingstationresult.setPOLLINGSTATION_ID(electioncontituencypollingstationrepository.getOne(jsonObj.getLong("pollingstation_ID")));
+			
+			
+			if (jsonObj.has("candidate_ID"))
+				electioncontituencypollingstationresult.setCANDIDATE_ID(jsonObj.getLong("candidate_ID"));
+			if (jsonObj.has("resultfrom_ID"))
+				electioncontituencypollingstationresult.setRESULTFROM_ID(jsonObj.getLong("resultfrom_ID"));
 			
 			if (jsonObj.has("obtained_votes"))
-				electioncontituencypollingstationresult.setOBTAINED_VOTES(jsonObj.getString("obtained_votes"));
+				electioncontituencypollingstationresult.setOBTAINED_VOTES(jsonObj.getLong("obtained_votes"));
 
 		    if (jsonObj.has("isactive"))
 				 electioncontituencypollingstationresult.setISACTIVE(jsonObj.getString("isactive"));
@@ -273,22 +275,19 @@ public class electionContituencyPollingStationResultController {
 			APIRequestDataLog apiRequest = tableDataLogs.apiRequestDataLog("PUT", databaseTableID, requestUser, "/electioncontituencypollingstationresult" + id,
 					data, workstation);
 
-			
-
-			if (jsonObj.has("pollingstationresult_ID") && !jsonObj.isNull("pollingstationresult_ID"))
-			    electioncontituencypollingstationresult.setPOLLINGSTATIONRESULT_ID(electioncontituencypollingstationrepository.getOne(jsonObj.getLong("pollingstationresult_ID")));
-			
-			if (jsonObj.has("pollingstation_ID") && !jsonObj.isNull("pollingstation_ID"))
-			    electioncontituencypollingstationresult.setPOLLINGSTATION_ID(electioncontituencypollingstationrepository.getOne(jsonObj.getLong("pollingstation_ID")));
-					    
-			if (jsonObj.has("candidate_ID") && !jsonObj.isNull("candidate_ID"))
-		    	 electioncontituencypollingstationresult.setCANDIDATE_ID(lookuprepository.findOne(jsonObj.getLong("candidate_ID")));
-					
-			if (jsonObj.has("resultfrom_ID") && !jsonObj.isNull("resultfrom_ID"))
-		    	 electioncontituencypollingstationresult.setCANDIDATE_ID(lookuprepository.findOne(jsonObj.getLong("resultfrom_ID")));
+			  if (jsonObj.has("pollingstation_ID") && !jsonObj.isNull("pollingstation_ID"))
+			    	 electioncontituencypollingstationresult.setPOLLINGSTATION_ID(electioncontituencypollingstationrepository.findOne(jsonObj.getLong("pollingstation_ID")));
+				
+			    if (jsonObj.has("candidate_ID"))
+					 electioncontituencypollingstationresult.setCANDIDATE_ID(jsonObj.getLong("candidate_ID"));
+			  
+				
+			    if (jsonObj.has("resultfrom_ID"))
+					 electioncontituencypollingstationresult.setRESULTFROM_ID(jsonObj.getLong("resultfrom_ID"));
+			  
 					
 			    if (jsonObj.has("obtained_votes"))
-					 electioncontituencypollingstationresult.setOBTAINED_VOTES(jsonObj.getString("obtained_votes"));
+					 electioncontituencypollingstationresult.setOBTAINED_VOTES(jsonObj.getLong("obtained_votes"));
 			  
 			    if (jsonObj.has("isactive"))
 					 electioncontituencypollingstationresult.setISACTIVE(jsonObj.getString("isactive"));
@@ -375,22 +374,32 @@ public class electionContituencyPollingStationResultController {
 			    
 			    
 			    
-				if (id!=-1) {
-					if (jsonObj.has("pollingstationresult_ID") && !jsonObj.isNull("pollingstationresult_ID"))
-						electioncontituencypollingstationresult.setPOLLINGSTATIONRESULT_ID(electioncontituencypollingstationrepository.getOne(jsonObj.getLong("pollingstationresult_ID")));
+			    if (id!=-1) {
+					if (jsonObj.has("pollingstation_ID") && !jsonObj.isNull("pollingstation_ID"))
+						electioncontituencypollingstationresult.setPOLLINGSTATION_ID(electioncontituencypollingstationrepository.getOne(jsonObj.getLong("pollingstation_ID")));
 					
+	//				if (id!=-1) {
+		//				if (jsonObj.has("pollingstationresult_ID") && !jsonObj.isNull("pollingstationresult_ID"))
+			//				electioncontituencypollingstationresult.setPOLLINGSTATIONRESULT_ID(electioncontituencypollingstationrepository.getOne(jsonObj.getLong("pollingstationresult_ID")));
+						
 					
-				if (jsonObj.has("pollingstation_ID") && !jsonObj.isNull("pollingstation_ID"))
-						 electioncontituencypollingstationresult.setPOLLINGSTATION_ID(lookuprepository.findOne(jsonObj.getLong("pollingstation_ID")));
+	// 			if (jsonObj.has("pollingstation_ID") && !jsonObj.isNull("pollingstation_ID"))
+	//					 electioncontituencypollingstationresult.setPOLLINGSTATION_ID(lookuprepository.findOne(jsonObj.getLong("pollingstation_ID")));
+	//				
+	//				if (jsonObj.has("candidate_ID") && !jsonObj.isNull("candidate_ID"))
+		//				 electioncontituencypollingstationresult.setCANDIDATE_ID(lookuprepository.findOne(jsonObj.getLong("candidate_ID")));
 					
-					if (jsonObj.has("candidate_ID") && !jsonObj.isNull("candidate_ID"))
-						 electioncontituencypollingstationresult.setCANDIDATE_ID(lookuprepository.findOne(jsonObj.getLong("candidate_ID")));
-					
-					if (jsonObj.has("resultfrom_ID") && !jsonObj.isNull("resultfrom_ID"))
-						 electioncontituencypollingstationresult.setRESULTFROM_ID(lookuprepository.findOne(jsonObj.getLong("resultfrom_ID")));
-					 
+	//				if (jsonObj.has("resultfrom_ID") && !jsonObj.isNull("resultfrom_ID"))
+	//					 electioncontituencypollingstationresult.setRESULTFROM_ID(lookuprepository.findOne(jsonObj.getLong("resultfrom_ID")));
+//
+					 if (jsonObj.has("candidate_ID")) 
+						 electioncontituencypollingstationresult.setCANDIDATE_ID(jsonObj.getLong("candidate_ID"));
+
+					 if (jsonObj.has("resultfrom_ID")) 
+						 electioncontituencypollingstationresult.setRESULTFROM_ID(jsonObj.getLong("resultfrom_ID"));
+
 					 if (jsonObj.has("obtained_votes")) 
-						 electioncontituencypollingstationresult.setOBTAINED_VOTES(jsonObj.getString("obtained_votes"));
+						 electioncontituencypollingstationresult.setOBTAINED_VOTES(jsonObj.getLong("obtained_votes"));
 				
 					 if (jsonObj.has("isactive"))
 						electioncontituencypollingstationresult.setISACTIVE(jsonObj.getString("isactive"));

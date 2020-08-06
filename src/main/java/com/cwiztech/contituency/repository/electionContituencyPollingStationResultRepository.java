@@ -9,6 +9,7 @@ import com.cwiztech.contituency.model.ElectionContituencyPollingStationResult;
 
 public interface electionContituencyPollingStationResultRepository extends JpaRepository<ElectionContituencyPollingStationResult, Long> {
 
+
 	@Query(value = "select * from TBLELECTIONCONTITUENCYPOLLINGSTATIONRESULT where ISACTIVE='Y'", nativeQuery = true)
 	public List<ElectionContituencyPollingStationResult> findActive();
 
