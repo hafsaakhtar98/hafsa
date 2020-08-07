@@ -14,13 +14,13 @@ public interface electionContituencyPollingStationResultRepository extends JpaRe
 	public List<ElectionContituencyPollingStationResult> findActive();
 
 	@Query(value = "select * from TBLELECTIONCONTITUENCYPOLLINGSTATIONRESULT as a"
-			+ "inner join TBLELECTIONCONTITUENCYPOLLINGSTATION as b on a.POLLINGSTATIONRESULT_ID=b.POLLINGSTATIONRESULT_ID "
-			+ "where POLLINGSTATION_ID like ?1 or CANDIDATE_ID like ?1 or RESULTFROM_ID like ?1 or OBTAINED_VOTES like ?1 ) and a.ISACTIVE='Y'", nativeQuery = true)
+			+ "inner join TBLELECTIONCONTITUENCYPOLLINGSTATION as b on a.POLLINGSTATION_ID=b.POLLINGSTATION_ID "
+			+ "where  CANDIDATE_ID like ?1 or RESULTFROM_ID like ?1 or OBTAINED_VOTES like ?1 ) and a.ISACTIVE='Y'", nativeQuery = true)
 	public List<ElectionContituencyPollingStationResult> findBySearch(String search);
 
 	@Query(value = "select * from TBLELECTIONCONTITUENCYPOLLINGSTATIONRESULT as a "
-			+  "inner join TBLELECTIONCONTITUENCYPOLLINGSTATION as b on a.POLLINGSTATIONRESULT_ID=b.POLLINGSTATIONREULT_ID "
-			+ "where POLLINGSTATION_ID like ?1 or CANDIDATE_ID like ?1 or RESULTFROM_ID like ?1 or OBTAINED_VOTES like ?1" + "", nativeQuery = true) 
+			+  "inner join TBLELECTIONCONTITUENCYPOLLINGSTATION as b on a.POLLINGSTATION_ID=b.POLLINGSTATION_ID "
+			+ "where  CANDIDATE_ID like ?1 or RESULTFROM_ID like ?1 or OBTAINED_VOTES like ?1" + "", nativeQuery = true) 
 	public List<ElectionContituencyPollingStationResult> findAllBySearch(String search);
 
 	@Query(value = "select * from TBLELECTIONCONTITUENCYPOLLINGSTATIONRESULT as a "

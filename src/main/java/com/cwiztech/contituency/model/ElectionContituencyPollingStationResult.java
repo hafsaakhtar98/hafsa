@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -21,8 +23,9 @@ public class  ElectionContituencyPollingStationResult {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long POLLINGSTATIONRESULT_ID;
 	
-	@Column(name=" POLLINGSTATION_ID")
-	private long  POLLINGSTATION_ID;
+	@ManyToOne
+	@JoinColumn(name=" POLLINGSTATION_ID")
+	private ElectionContituencyPollingStation  POLLINGSTATION_ID;
 	
 	@Column(name="CANDIDATE_ID")
 	private long CANDIDATE_ID;
@@ -60,12 +63,13 @@ public class  ElectionContituencyPollingStationResult {
 	}
 
 
-	public long getPOLLINGSTATION_ID() {
+	
+	public ElectionContituencyPollingStation getPOLLINGSTATION_ID() {
 		return POLLINGSTATION_ID;
 	}
 
 
-	public void setPOLLINGSTATION_ID(long pOLLINGSTATION_ID) {
+	public void setPOLLINGSTATION_ID(ElectionContituencyPollingStation pOLLINGSTATION_ID) {
 		POLLINGSTATION_ID = pOLLINGSTATION_ID;
 	}
 
