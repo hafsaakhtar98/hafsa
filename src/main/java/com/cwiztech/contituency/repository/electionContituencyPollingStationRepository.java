@@ -17,7 +17,7 @@ public interface electionContituencyPollingStationRepository extends JpaReposito
 
 	@Query(value = "select * from TBLELECTIONCONTITUENCYPOLLINGSTATION as a"
 			+ "inner join TBLELECTIONCONTITUENCY as b on a.CONTITUENCY_ID=b.CONTITUENCY_ID "
-			+ "where POLLINGSTATION_CODE like ?1 or DESCRIPTION like ?1 or LANGITUDE like ?1 or LATITUDE like ?1 or VALID_VOTES like ?1 or REJECTED_VOTES like ?1 ) and a.ISACTIVE='Y'", nativeQuery = true)
+			+ "where POLLINGSTATION_CODE like ?1 or DESCRIPTION like ?1 or LANGITUDE like ?1 or LATITUDE like ?1 or VALID_VOTES like ?1 or REJECTED_VOTES like ?1  and a.ISACTIVE='Y'", nativeQuery = true)
 	public List<ElectionContituencyPollingStation> findBySearch(String search);
 
 	@Query(value = "select * from TBLELECTIONCONTITUENCYPOLLINGSTATION as a "

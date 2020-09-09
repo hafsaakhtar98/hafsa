@@ -15,7 +15,7 @@ public interface electionContituencyPollingStationResultRepository extends JpaRe
 
 	@Query(value = "select * from TBLELECTIONCONTITUENCYPOLLINGSTATIONRESULT as a"
 			+ "inner join TBLELECTIONCONTITUENCYPOLLINGSTATION as b on a.POLLINGSTATION_ID=b.POLLINGSTATION_ID "
-			+ "where  CANDIDATE_ID like ?1 or RESULTFROM_ID like ?1 or OBTAINED_VOTES like ?1 ) and a.ISACTIVE='Y'", nativeQuery = true)
+			+ "where  CANDIDATE_ID like ?1 or RESULTFROM_ID like ?1 or OBTAINED_VOTES like ?1  and a.ISACTIVE='Y'", nativeQuery = true)
 	public List<ElectionContituencyPollingStationResult> findBySearch(String search);
 
 	@Query(value = "select * from TBLELECTIONCONTITUENCYPOLLINGSTATIONRESULT as a "

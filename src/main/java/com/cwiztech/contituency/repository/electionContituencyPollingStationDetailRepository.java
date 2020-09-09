@@ -15,7 +15,7 @@ public interface electionContituencyPollingStationDetailRepository extends JpaRe
 
 	@Query(value = "select * from TBLELECTIONCONTITUENCYPOLLINGSTATIONDETAIL as a"
 			+ "inner join TBLELECTIONCONTITUENCYPOLLINGSTATION as b on a.POLLINGSTATION_ID=b.POLLINGSTATION_ID "
-			+ "where AREATYPE_ID like ?1 or ELECTORALAREA like ?1 or BLOCKCODE like ?1 or GANDER like ?1 or ASSIGNEDVOTERS like ?1 or TOTALPOLLINGBOOTHS like ?1 ) and a.ISACTIVE='Y'", nativeQuery = true)
+			+ "where AREATYPE_ID like ?1 or ELECTORALAREA like ?1 or BLOCKCODE like ?1 or GANDER like ?1 or ASSIGNEDVOTERS like ?1 or TOTALPOLLINGBOOTHS like ?1 and a.ISACTIVE='Y'", nativeQuery = true)
 	public List<ElectionContituencyPollingStationDetail> findBySearch(String search);
 
 	@Query(value = "select * from TBLELECTIONCONTITUENCYPOLLINGSTATIONDETAIL as a "
