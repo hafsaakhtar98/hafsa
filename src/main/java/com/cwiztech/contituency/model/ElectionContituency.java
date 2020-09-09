@@ -1,12 +1,18 @@
 package com.cwiztech.contituency.model;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.cwiztech.login.model.LoginUser;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = " TBLELECTIONCONTITUENCY")
@@ -35,15 +41,18 @@ public class ElectionContituency {
 	@Column(name = "ISACTIVE ")
 	private String ISACTIVE ;
 	
-	@Column(name = "MODIFIED_BY")
-	private long MODIFIED_BY;
+	@JsonIgnore
+	@ManyToOne(cascade = { CascadeType.ALL })
+	@JoinColumn(name = "MODIFIED_BY")
+	private LoginUser MODIFIED_BY;
 	
+	@JsonIgnore
 	@Column(name = "MODIFIED_WHEN")
 	private String MODIFIED_WHEN;
 	
+	@JsonIgnore
 	@Column(name = "MODIFIED_WORKSTATION")
 	private String MODIFIED_WORKSTATION;
-	
 
 	public long getCONTITUENCY_ID() {
 		return CONTITUENCY_ID;
@@ -102,12 +111,11 @@ public class ElectionContituency {
 		ISACTIVE = iSACTIVE;
 	}
 
-	public long getMODIFIED_BY() {
+	public LoginUser getMODIFIED_BY() {
 		return MODIFIED_BY;
 	}
 
-
-	public void setMODIFIED_BY(long mODIFIED_BY) {
+	public void setMODIFIED_BY(LoginUser mODIFIED_BY) {
 		MODIFIED_BY = mODIFIED_BY;
 	}
 

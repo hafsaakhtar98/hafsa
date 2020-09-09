@@ -185,7 +185,7 @@ public class electionContituencyPollingStationResultController {
 			APIRequestDataLog apiRequest = tableDataLogs.apiRequestDataLog("POST", databaseTableID, requestUser, "/electioncontituencypollingstationresult",
 					data, workstation);
 
-			if (!jsonObj.has("pollingstation_ID")) {
+			if (!jsonObj.has("pollingstation_ID")  && jsonObj.isNull("pollingstation_ID")){
 				apiRequest = tableDataLogs.errorDataLog(apiRequest, "ElectionContituencyPollingStationReslt", "PollingStation Id is missing");
 				apirequestdatalogRepository.saveAndFlush(apiRequest);
 				return apiRequest.getREQUEST_OUTPUT();

@@ -187,7 +187,7 @@ public class electionContituencyPollingStationDetailController {
 
 			
 			
-			if (!jsonObj.has("pollingstation_ID")) {
+			if (!jsonObj.has("pollingstation_ID") && jsonObj.isNull("pollingstation_ID")) {
 				apiRequest = tableDataLogs.errorDataLog(apiRequest, "ElectionContituencyPollingStationDetail", "PollingStation Id is missing");
 				apirequestdatalogRepository.saveAndFlush(apiRequest);
 				return apiRequest.getREQUEST_OUTPUT();
@@ -195,7 +195,7 @@ public class electionContituencyPollingStationDetailController {
 			electioncontituencypollingstationdetail.setPOLLINGSTATION_ID(electioncontituencypollingstationrepository.getOne(jsonObj.getLong("pollingstation_ID")));
 			
 			
-			if (!jsonObj.has("areatype_ID")) {
+			if (!jsonObj.has("areatype_ID") && jsonObj.isNull("areatype_ID")) {
 				apiRequest = tableDataLogs.errorDataLog(apiRequest, "ElectionContituencyPollingStationDetail", "AreaType Id is missing");
 				apirequestdatalogRepository.saveAndFlush(apiRequest);
 				return apiRequest.getREQUEST_OUTPUT();

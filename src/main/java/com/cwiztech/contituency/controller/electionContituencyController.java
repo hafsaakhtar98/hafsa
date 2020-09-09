@@ -135,6 +135,8 @@ public class electionContituencyController {
 		log.info("--------------------------------------------------------");
 		return rtn;
 	}
+	
+	
 	@RequestMapping(method = RequestMethod.POST)
 	public String insert(@RequestBody String data,@RequestHeader(value = "Authorization") String headToken)
 	throws JsonProcessingException, JSONException, ParseException {
@@ -158,7 +160,7 @@ public class electionContituencyController {
 	workstation = jsonObj.getString("workstation");
 	APIRequestDataLog apiRequest = tableDataLogs.apiRequestDataLog("POST", databaseTableID, requestUser, "/electioncontituency", data,
 	workstation);
-	
+
 	if (!jsonObj.has("contituency_ID")&& jsonObj.isNull("contituency_ID")) {
 		apiRequest = tableDataLogs.errorDataLog(apiRequest, "ElectionContituency", "contituency_ID  is missing");
 		apirequestdatalogRepository.saveAndFlush(apiRequest);
@@ -203,23 +205,20 @@ public class electionContituencyController {
 		}
 		 
 	electioncontituency.setCONTITUENCY_CODE(jsonObj.getString("contituency_CODE"));
-		
-		
-	electioncontituency.setMODIFIED_BY(requestUser.getUSER_ID());
-	
+				
+	//electioncontituency.setMODIFIED_BY(requestUser.getUSER_ID());
+	electioncontituency.setMODIFIED_BY(requestUser);
 	 
 	electioncontituency.setISACTIVE("Y");
+	electioncontituency.setMODIFIED_BY(requestUser);
 	electioncontituency.setMODIFIED_WORKSTATION(workstation);
 	electioncontituency.setMODIFIED_WHEN(dateFormat1.format(date));
-	electioncontituency= electioncontituencyrepository.saveAndFlush(electioncontituency);
-	
-	 
+	electioncontituency = electioncontituencyrepository.saveAndFlush(electioncontituency);
 	rtn = mapper.writeValueAsString(electioncontituency);
 
-	tbldatalogrepository
-	.saveAndFlush(tableDataLogs.TableSaveDataLog(electioncontituency.getCONTITUENCY_ID(), databaseTableID, requestUser.getUSER_ID(), rtn));
+	tbldatalogrepository.saveAndFlush(tableDataLogs.TableSaveDataLog(electioncontituency.getCONTITUENCY_ID(),
+			databaseTableID, requestUser, rtn));
 
-	
 	apiRequest.setREQUEST_OUTPUT(rtn);
 	apiRequest.setREQUEST_STATUS("Success");
 	apirequestdatalogRepository.saveAndFlush(apiRequest);
@@ -229,7 +228,8 @@ public class electionContituencyController {
 
 	return rtn;
 
-	}
+};
+
 	
 	@RequestMapping(value= "/{id}",method = RequestMethod.PUT)
 	public String update(@PathVariable Long id,@RequestBody String data,@RequestHeader(value = "Authorization") String headToken)
@@ -257,9 +257,9 @@ public class electionContituencyController {
 	workstation);
 
 
-	if (jsonObj.has("CONTITUENCY_ID"))  
+	if (jsonObj.has("CONTITUENCY_ID") && !jsonObj.isNull("contituency_ID"))
 		electioncontituency.setCONTITUENCY_ID(jsonObj.getLong("contituency_ID"));
-	if (jsonObj.has("ASSEMBLY_ID"))  
+	if (jsonObj.has("ASSEMBLY_ID"))
 		electioncontituency.setASSEMBLY_ID(jsonObj.getLong("assembly_ID"));
 	if (jsonObj.has("ELECTION_ID"))  
 		electioncontituency.setELECTION_ID(jsonObj.getLong("election_ID"));
@@ -267,13 +267,13 @@ public class electionContituencyController {
 		electioncontituency.setDISTRICT_ID(jsonObj.getLong("district_ID"));
 	if (jsonObj.has("CONTITUENCY_DESC"))  
 		electioncontituency.setCONTITUENCY_DESC(jsonObj.getString("contituency_DESC"));
-	if (jsonObj.has("CONTITUENCY_CODE"))  
+	if (jsonObj.has("CONTITUENCY_CODE"))
 		electioncontituency.setCONTITUENCY_CODE(jsonObj.getString("contituency_CODE"));
 
 	if (jsonObj.has("isactive"))
 		electioncontituency.setISACTIVE(jsonObj.getString("isactive"));
 
-	electioncontituency.setMODIFIED_BY(requestUser.getUSER_ID());
+	electioncontituency.setMODIFIED_BY(requestUser);
 	electioncontituency.setMODIFIED_WORKSTATION(workstation);
 	electioncontituency.setMODIFIED_WHEN(dateFormat1.format(date));
 	electioncontituency= electioncontituencyrepository.saveAndFlush(electioncontituency);

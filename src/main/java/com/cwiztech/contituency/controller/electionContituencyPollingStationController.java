@@ -182,14 +182,14 @@ public class electionContituencyPollingStationController {
 			APIRequestDataLog apiRequest = tableDataLogs.apiRequestDataLog("POST", databaseTableID, requestUser, "/electioncontituencypollingstation",
 					data, workstation);
 			
-			if (!jsonObj.has("contituency_ID")) {
+			if (!jsonObj.has("contituency_ID") && jsonObj.isNull("contituency_CODE")){
 				apiRequest = tableDataLogs.errorDataLog(apiRequest, "ElectionContituencyPollingStation", "Contituency Id is missing");
 				apirequestdatalogRepository.saveAndFlush(apiRequest);
 				return apiRequest.getREQUEST_OUTPUT();
 			}
 			electioncontituencypollingstation.setCONTITUENCY_ID(electioncontituencyrepository.findOne(jsonObj.getLong("contituency_ID")));
 			
-			if (!jsonObj.has("description")) {
+			if (!jsonObj.has("description") && jsonObj.isNull("description")) {
 				apiRequest = tableDataLogs.errorDataLog(apiRequest, "ElectionContituencyPollingStation", "Description is missing");
 				apirequestdatalogRepository.saveAndFlush(apiRequest);
 				return apiRequest.getREQUEST_OUTPUT();
